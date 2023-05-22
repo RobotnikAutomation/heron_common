@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="robot_id" default="robot"/>
+
+  <arg name="config_package" default="$(optenv ROBOT_NAVIGATION_CONFIG_PACKAGE heron_navigation)"/>
+  <arg name="config_folder" default="config/move"/>
+  <arg name="config_path" default="$(eval find(config_package) + '/' + config_folder)"/>
+
+  <arg name="id_robot" default="$(optenv ROBOT_ID robot)"/>
+  <arg name="prefix" default="$(arg id_robot)_"/>
+
+  <arg name="odom_frame" default="$(arg prefix)odom"/>
+  <arg name="base_frame" default="$(arg prefix)base_footprint"/>
+  <arg name="global_frame" default="world"/>
+
+  <arg name="has_safety_controller" default="false"/>
+  
+  <!-- Scan topics -->
+  <arg name="front_scan_topic" default="front_laser/scan"/>
+  <arg name="front_rgbd_to_scan_topic" default="front_rgbd_camera/scan"/>
+  <arg name="cmd_vel_topic" default="move/cmd_vel"/>
+  
+  <arg name="kinematics" default="$(optenv ROBOT_KINEMATICS diff)"/>
+  <!-- This flag is to choose between holonomic and non-holonomic movements-->
+  <arg if="$(eval kinematics != 'omni')" name="differential_robot" default="true"/>
+  <arg if="$(eval kinematics == 'omni')" name="differential_robot" default="false"/>
+
+  <arg name="smach" default="false" />
+  <arg name="debug" default="false" />
+  <arg unless="$(arg debug)" name="launch_prefix" value="" />
+  <arg if="$(arg debug)" name="launch_prefix" value="terminator -m -x gdb --args" />
+
+  <group ns="$(arg robot_id)">
+    <node name="move" pkg="robotnik_move" type="move_node" respawn="false" output="screen">
+      <param name="robot_base_frame" type="string" value="$(arg base_frame)" />
+      <param name="fixed_frame" type="string" value="$(arg odom_frame)" />
+  
+      <rosparam command="load" file="$(arg config_path)/move.yaml"/>
+  
+      <remap unless="$(arg has_safety_controller)" from="cmd_vel" to="~cmd_vel" />
+      <remap if="$(arg has_safety_controller)" from="cmd_vel" to="~cmd_vel_unsafe" />
+  
+      <param name="differential_robot" value="$(arg differential_robot)" />
+    </node>
+   
+    <!-- Map Server -->
+    <include file="$(find heron_localization)/launch/map_server.launch">
+	    <arg name="frame_id" value="world"/>
+    </include>
+  
+    <!-- Move Base Flex -->
+    <node pkg="mbf_costmap_nav" type="mbf_costmap_nav" respawn="false" name="move_base_flex" output="screen" launch-prefix="$(arg launch_prefix)" >
+      <param name="tf_timeout" value="1.5"/>
+      <param name="planner_max_retries" value="3"/>
+      <remap from="cmd_vel" to="/robot/move_base/cmd_vel"/>
+      <param name="SBPLLatticePlanner/primitive_filename" value="$(find robotnik_move_base_flex)/mprim/test_5cm.mprim"/>
+      <rosparam file="$(find heron_navigation)/config/robotnik_move_base_flex/world_navigation/planners_world.yaml" command="load" />
+      <rosparam file="$(find heron_navigation)/config/robotnik_move_base_flex/world_navigation/controllers_world.yaml" command="load" />
+      <rosparam file="$(find heron_navigation)/config/robotnik_move_base_flex/world_navigation/recovery_behaviors_world.yaml" command="load" />
+      <!-- Global costmap configuration -->
+      <rosparam file="$(find heron_navigation)/config/robotnik_move_base_flex/costmap_common_params.yaml" command="load" ns="global_costmap" subst_value="true"/>
+      <rosparam file="$(find heron_navigation)/config/robotnik_move_base_flex/global_costmap_params.yaml" command="load" subst_value="true"/>
+      <!-- Local costmap configuration-->
+      <rosparam file="$(find heron_navigation)/config/robotnik_move_base_flex/costmap_common_params.yaml" command="load" ns="local_costmap" subst_value="true"/>
+      <rosparam file="$(find heron_navigation)/config/robotnik_move_base_flex/local_costmap_params.yaml" command="load" subst_value="true"/>
+      
+      <rosparam file="$(find heron_navigation)/config/robotnik_move_base_flex/move_base_flex.yaml" command="load" subst_value="true"/>
+    </node>
+  
+    <!-- SMACH Navigation State Machine -->
+    <node if="$(arg smach)" pkg="robotnik_move_base_flex" type="mbf_state_machine.py" name="mbf_state_machine" output="screen"/>
+  
+    <!-- Robotnik Move Base Flex -->
+    <node pkg="robotnik_move_base_flex" type="robotnik_move_base_flex_node" name="robotnik_move_base_flex" output="screen"/>
+    
+    <!-- Filters -->
+    <include file="$(find heron_navigation)/launch/pcl_filter.launch">
+    </include>
+
+  </group>
+</launch>

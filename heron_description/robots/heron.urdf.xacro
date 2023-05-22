@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+
+<!-- heron v0.0 -->
+<robot name="heron" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- Imports parameters -->
+    
+    <!-- Flag to select the high or low quality model -->
+    <xacro:property name="hq" value="true" />
+    <!-- Flag to publish the bf of the robot model -->
+    <xacro:property name="publish_bf" value="true" />
+    <!-- Name of the robot -->
+    <xacro:arg name="prefix" default="robot_" />
+    <!-- Kinematics of the robot -->
+    <xacro:arg name="kinematics" default="ackermann" />
+    <!-- Kinematics file for the arm, not used -->
+    <xacro:property name="load_kinematics_file" value="false" />
+    <!-- Flag to use the gazebo plugin compatible with nvidia gpus-->
+    <xacro:arg name="gpu" default="true" />
+    <!-- Name of the arm manufacturer (i.e. ur, ...)-->
+    <xacro:arg name="arm_manufacturer" default="ur" />
+    <!-- Specific model (i.e. ur10e, ur5, ...)-->
+    <xacro:arg name="arm_model" default="ur10e" />
+    <!-- Flag to add the add a gripper -->
+    <xacro:arg name="launch_gripper" default="false" />
+    <!-- Name of the gripper manufacturer -->
+    <xacro:arg name="gripper_manufacturer" default="none" />
+    <!-- Name of the gripper model -->
+    <xacro:arg name="gripper_model" default="none" />
+    <!-- Flag to add the lifting unit -->
+    <xacro:arg name="launch_lift" default="true" />
+    <!-- Name of the lifting unit manufacturer -->
+    <xacro:arg name="lift_manufacturer" default="ewellix" />
+    <!-- Name of the lifting unit model -->
+    <xacro:arg name="lift_model" default="500mm" />
+    <!-- Name of the use_case: roadmarks, cones, potholes, cracks, rups -->
+    <xacro:arg name="use_case" default="roadmarks" />
+
+    <!-- Imports robot -->
+    <!--xacro:include filename="$(find heron)/urdf/robots/rbvogui_xl.urdf.xacro" /-->
+    <xacro:include filename="$(find heron_bringup)/urdf/robots/rbvogui_xl.urdf.xacro" />
+
+    <!-- Imports painting tools -->
+    <xacro:include filename="$(find heron_bringup)/urdf/robots/painting_tools.urdf.xacro" />
+
+    <!-- Declares specific elements depending on the use case -->
+    <xacro:macro name="heron" params="prefix use_case">
+      <!--Road marks use case: Tanks + Gun + Microsphere system -->
+      <xacro:if value="${use_case == 'roadmarks'}"> 
+        <xacro:painting_tools prefix="${prefix}painting_" parent="${prefix}chassis_link">
+            <origin xyz="-0.0475 0 0.287" rpy="1.57 0 -1.57"/>
+        </xacro:painting_tools>
+      </xacro:if>
+      <!--Road marks use case: Cones box + 3FG15 gripper -->
+      <xacro:if value="${use_case == 'cones'}"> 
+        <xacro:cones_tools prefix="${prefix}painting_" parent="${prefix}chassis_link">
+            <origin xyz="-0.0475 0 0.287" rpy="1.57 0 -1.57"/>
+        </xacro:cones_tools>
+      </xacro:if>
+      <!--RUPs use case:  TODO -->
+      <xacro:if value="${use_case == 'rups'}"> 
+        <xacro:rups_tools prefix="${prefix}painting_" parent="${prefix}chassis_link">
+            <origin xyz="-0.0475 0 0.287" rpy="1.57 0 -1.57"/>
+        </xacro:rups_tools>
+      </xacro:if>
+      <!--Potholes use case: TODO -->
+      <xacro:if value="${use_case == 'potholes'}"> 
+        <xacro:potholes_tools prefix="${prefix}painting_" parent="${prefix}chassis_link">
+            <origin xyz="-0.0475 0 0.287" rpy="1.57 0 -1.57"/>
+        </xacro:potholes_tools>
+      </xacro:if>
+      <!--Cracks use case: TODO -->
+      <xacro:if value="${use_case == 'cracks'}"> 
+        <xacro:cracks_tools prefix="${prefix}painting_" parent="${prefix}chassis_link">
+            <origin xyz="-0.0475 0 0.287" rpy="1.57 0 -1.57"/>
+        </xacro:cracks_tools>
+      </xacro:if>
+
+    </xacro:macro>
+
+
+    <xacro:heron prefix="$(arg prefix)" use_case="$(arg use_case)" />
+
+</robot>

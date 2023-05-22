@@ -1,0 +1,4 @@
+filter_field_name: z
+filter_limit_min: 0.001
+filter_limit_max: 100
+filter_limit_negative: False

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package>
+  <name>heron_navigation</name>
+  <version>0.0.0</version>
+  <description>The heron_navigation package</description>
+
+  <author email="rjulia@robotnik.es">Raquel Julia</author>
+  <maintainer email="rjulia@robotnik.es">Raquel Julia</maintainer>
+
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <run_depend>teb_local_planner</run_depend>
+  <run_depend>eband_local_planner</run_depend>
+  <run_depend>move_base</run_depend>
+  <run_depend>global_planner</run_depend>
+
+  <export>
+
+  </export>
+</package>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <!-- What navigation config package to use -->
+  <arg name="navigation_package" default="$(optenv ROBOT_NAVIGATION_CONFIG_PACKAGE heron_navigation)"/>
+
+  <arg name="pcl_node_name" default="front_3d_laser_filter"/>
+
+  <!-- Topics -->
+  <arg name="input_scan" default="front_3d_laser/points_3d"/>
+  <arg name="output_scan" default="front_3d_laser/points_3d/filtered"/>
+
+  <!-- Configuration folder, to store different configurations -->
+  <arg name="config_folder" default="$(eval find(navigation_package) + '/config/filters')" />
+  <arg name="config_file" default="3d_filter.yaml"/>
+  <arg name="filters_file" default="$(arg config_folder)/$(arg config_file)"/>
+
+  <node pkg="nodelet" type="nodelet" name="pcl_manager" args="manager" output="screen" />
+
+  <node pkg="nodelet" type="nodelet" name="passthrough" args="load pcl/PassThrough pcl_manager" output="screen">
+    <rosparam file="$(arg filters_file)" command="load" subst_value="true"/>
+    <remap from="~input" to="$(arg input_scan)" />
+    <remap from="~output" to="$(arg output_scan)" />
+  </node>
+
+</launch>

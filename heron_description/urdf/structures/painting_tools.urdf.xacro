@@ -22,13 +22,13 @@
                     <color rgba="1.0 0.0 0.0 1"/>
                 </material>
                 <geometry>
-                    <mesh filename="package://heron_bringup/meshes/painting_tanks.stl"/>
+                    <mesh filename="package://heron_bringup/meshes/structures/painting_tanks.stl"/>
                 </geometry>
             </visual>
             <collision>
             <origin rpy="0 0 0" xyz="0 0 0"/>
             <geometry>
-                <mesh filename="package://heron_bringup/meshes/painting_tanks.stl"/>
+                <mesh filename="package://heron_bringup/meshes/structures/painting_tanks.stl"/>
             </geometry>
             </collision>
         </link>

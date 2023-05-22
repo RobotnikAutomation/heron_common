@@ -38,10 +38,10 @@
 
     <!-- Imports robot -->
     <!--xacro:include filename="$(find heron)/urdf/robots/rbvogui_xl.urdf.xacro" /-->
-    <xacro:include filename="$(find heron_bringup)/urdf/robots/rbvogui_xl.urdf.xacro" />
+    <xacro:include filename="$(find heron_description)/robots/rbvogui_xl.urdf.xacro" />
 
     <!-- Imports painting tools -->
-    <xacro:include filename="$(find heron_bringup)/urdf/robots/painting_tools.urdf.xacro" />
+    <xacro:include filename="$(find heron_description)/urdf/structures/painting_tools.urdf.xacro" />
 
     <!-- Declares specific elements depending on the use case -->
     <xacro:macro name="heron" params="prefix use_case">
@@ -82,3 +82,4 @@
     <xacro:heron prefix="$(arg prefix)" use_case="$(arg use_case)" />
 
 </robot>
+

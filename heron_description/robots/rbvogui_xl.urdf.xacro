@@ -136,7 +136,7 @@
 
         <joint name="${prefix}arm_base_joint" type="fixed">
             <origin xyz="0 0 0.508" rpy="0 0 ${PI/4}"/>
-            <parent link="${prefix}ewellix_lift_2_link" />
+            <parent link="${prefix}ewellix_lift_top_link" />
             <child link="${prefix}arm_base_link" />
         </joint>
 

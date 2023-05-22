@@ -9,7 +9,7 @@ controllers:
 
 teb:
   odom_topic: robotnik_base_controller/odom
-  map_frame: robot_odom   
+  map_frame: world   
   # Trajectory
    
   teb_autosize: True

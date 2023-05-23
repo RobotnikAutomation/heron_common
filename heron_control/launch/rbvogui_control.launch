@@ -6,7 +6,7 @@
   <arg name="sim" default="false"/>
   <arg name="cmd_vel" default="robotnik_base_control/cmd_vel"/>
   <arg name="kinematics" default="$(optenv ROBOT_KINEMATICS omni)" />  
-  <arg name="controller_sim" default="$(optenv ROBOT_CONTROLLER_SIM robotnik_base_control joint_read_command_controller)"/>
+  <arg name="controller_sim" default="$(optenv ROBOT_CONTROLLER_SIM robotnik_base_control joint_read_command_controller lift_joint_position_controller)"/>
   <arg name="wheel_diameter" default="$(optenv ROBOT_WHEEL_DIAMETER 0.22)"/>
   <arg name="track_width" default="$(optenv ROBOT_TRACK_WIDTH 0.439)"/> 
   <arg name="wheel_base" default="$(optenv ROBOT_WHEEL_BASE 0.439)"/>  
@@ -33,7 +33,7 @@
 
   <!-- Simulation - Load joint controller configurations from YAML file to parameter server -->
   <group if="$(arg sim)">
-    <rosparam file="$(find rbvogui_control)/config/robot_$(arg kinematics)_control_sim.yaml" command="load" subst_value="true"/>
+    <rosparam file="$(find heron_control)/config/robot_$(arg kinematics)_control_sim.yaml" command="load" subst_value="true"/>
     
     <!-- Controller spawner for ackermann/omni model -->
     <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen"

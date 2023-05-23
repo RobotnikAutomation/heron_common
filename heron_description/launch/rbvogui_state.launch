@@ -14,7 +14,7 @@
 
   <arg name="gpu" default="false"/>
 
-  <arg name="robot_use_case_tools" default="$(optenv ROBOT_USE_CASE_TOOLS) roadmarks"/>
+  <arg name="use_case" default="$(optenv ROBOT_USE_CASE_TOOLS cones)"/>
 
   <!-- Arm configuration-->
   <arg name="launch_arm" default="$(optenv ROBOT_HAS_ARM false)"/>
@@ -37,7 +37,7 @@
                 prefix:=$(arg prefix) kinematics:=$(arg kinematics) load_kinematics_file:=$(arg load_kinematics_file) gpu:=$(arg gpu)
                 launch_arm:=$(arg launch_arm) arm_manufacturer:=$(arg arm_manufacturer) arm_model:=$(arg arm_model)
                 launch_gripper:=$(arg launch_gripper) gripper_manufacturer:=$(arg gripper_manufacturer) gripper_model:=$(arg gripper_model) 
-                launch_lift:=$(arg launch_lift) lift_manufacturer:=$(arg lift_manufacturer) lift_model:=$(arg lift_model) use_case:=roadmarks"/>
+                launch_lift:=$(arg launch_lift) lift_manufacturer:=$(arg lift_manufacturer) lift_model:=$(arg lift_model) use_case:=$(arg use_case)"/>
   </group>
 
   <group if="$(arg robot_use_custom_xacro_path)" >
@@ -45,7 +45,7 @@
                 prefix:=$(arg prefix) kinematics:=$(arg kinematics) load_kinematics_file:=$(arg load_kinematics_file) gpu:=$(arg gpu)
                 launch_arm:=$(arg launch_arm) arm_manufacturer:=$(arg arm_manufacturer) arm_model:=$(arg arm_model)
                 launch_gripper:=$(arg launch_gripper) gripper_manufacturer:=$(arg gripper_manufacturer) gripper_model:=$(arg gripper_model)
-                launch_lift:=$(arg launch_lift) lift_manufacturer:=$(arg lift_manufacturer) lift_model:=$(arg lift_model) use_case:=roadmarks" />
+                launch_lift:=$(arg launch_lift) lift_manufacturer:=$(arg lift_manufacturer) lift_model:=$(arg lift_model) use_case:=$(arg use_case)" />
   </group>
 
   <!-- publish tfs through the robot_state_publisher -->

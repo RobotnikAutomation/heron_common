@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<robot name="cones_tools" xmlns:xacro="http://wiki.ros.org/xacro">
+
+    <xacro:include filename="$(find onrobot_3fg15_gripper_description)/urdf/onrobot_3fg15_gripper.urdf.xacro" />
+
+    <xacro:macro name="cones_tools" params="prefix">
+
+      <xacro:onrobot_3fg15_gripper prefix="${prefix}" parent="robot_arm_tool0" position="1">
+        <origin xyz="0 0 0" rpy="0 -1.57 0"/>
+      </xacro:onrobot_3fg15_gripper>
+
+    </xacro:macro>
+
+</robot>

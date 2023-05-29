@@ -45,7 +45,7 @@
     <xacro:property name="publish_bf" value="true" />
 
     <xacro:arg name="prefix" default="robot_" />
-    <xacro:arg name="kinematics" default="ackermann" />
+    <xacro:arg name="kinematics" default="omni" />
     <xacro:arg name="gpu" default="true" />
 
     <!-- Arm with lift parameters -->
@@ -135,7 +135,7 @@
         </xacro:ewellix_lift_500mm>
 
         <joint name="${prefix}arm_base_joint" type="fixed">
-            <origin xyz="0 0 0.508" rpy="0 0 ${PI/4}"/>
+            <origin xyz="0 0 0.508" rpy="0 0 0"/>
             <parent link="${prefix}ewellix_lift_top_link" />
             <child link="${prefix}arm_base_link" />
         </joint>

@@ -43,6 +43,9 @@
     <!-- Imports painting tools -->
     <xacro:include filename="$(find heron_description)/urdf/structures/painting_tools.urdf.xacro" />
 
+    <!-- Imports cones tools -->
+    <xacro:include filename="$(find heron_description)/urdf/structures/cones_tools.urdf.xacro" />
+
     <!-- Declares specific elements depending on the use case -->
     <xacro:macro name="heron" params="prefix use_case">
       <!--Road marks use case: Tanks + Gun + Microsphere system -->
@@ -53,8 +56,7 @@
       </xacro:if>
       <!--Road marks use case: Cones box + 3FG15 gripper -->
       <xacro:if value="${use_case == 'cones'}"> 
-        <xacro:cones_tools prefix="${prefix}painting_" parent="${prefix}chassis_link">
-            <origin xyz="-0.0475 0 0.287" rpy="1.57 0 -1.57"/>
+        <xacro:cones_tools prefix="${prefix}cones_">
         </xacro:cones_tools>
       </xacro:if>
       <!--RUPs use case:  TODO -->

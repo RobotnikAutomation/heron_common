@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: heron_description
+    relative_path: robots/rbvogui_xl.urdf.xacro
+    xacro_args: prefix:=robot_ launch_arm:=true load_kinematics_file:=true gpu:=true arm_manufacturer:=ur arm_model:=10e  launch_gripper:=false gripper_manufacturer:=none gripper_model:=none launch_lift:=true lift_manufacturer:=ewellix lift_model:=500
+  SRDF:
+    relative_path: config/rbvogui.srdf
+  CONFIG:
+    author_name: Raquel Julia Ros
+    author_email: rjulia@robotnik.es
+    generated_timestamp: 1685373744

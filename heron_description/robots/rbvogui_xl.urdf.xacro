@@ -14,7 +14,7 @@
     <xacro:include filename="$(find rbvogui_description)/urdf/bases/rbvogui_xl_base.urdf.xacro" />
 
     <!-- Import rbvogui wheels -->
-    <xacro:include filename="$(find rbvogui_description)/urdf/wheels/motor_wheel_xl.urdf.xacro" />
+    <xacro:include filename="$(find heron_description)/urdf/wheels/motor_wheel_xl.urdf.xacro" />
 
     <!-- Import rbvogui fix wheels -->
     <xacro:include filename="$(find rbvogui_description)/urdf/wheels/fixed_wheel_xl.urdf.xacro" />

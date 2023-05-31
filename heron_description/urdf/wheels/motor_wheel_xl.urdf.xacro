@@ -2,7 +2,7 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <xacro:include filename="$(find rbvogui_description)/urdf/wheels/wheel.gazebo.xacro" />
-  <xacro:include filename="$(find rbvogui_description)/urdf/wheels/rubber_wheel_285mm.urdf.xacro" />
+  <xacro:include filename="$(find heron_description)/urdf/wheels/rubber_wheel_285mm.urdf.xacro" />
 
   <xacro:property name="M_PI" value="3.1415926535897931" />
 

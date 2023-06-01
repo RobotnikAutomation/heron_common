@@ -11,7 +11,7 @@
     <!-- First we import all posible elements defined in the urdf.xacro files. All these elements are defined as macro:xacros -->
 
     <!-- Import rbvogui base elements-->
-    <xacro:include filename="$(find rbvogui_description)/urdf/bases/rbvogui_xl_base.urdf.xacro" />
+    <xacro:include filename="$(find heron_description)/urdf/bases/rbvogui_xl_base.urdf.xacro" />
 
     <!-- Import rbvogui wheels -->
     <xacro:include filename="$(find heron_description)/urdf/wheels/motor_wheel_xl.urdf.xacro" />

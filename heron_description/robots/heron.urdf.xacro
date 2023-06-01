@@ -56,7 +56,7 @@
       </xacro:if>
       <!--Road marks use case: Cones box + 3FG15 gripper -->
       <xacro:if value="${use_case == 'cones'}"> 
-        <xacro:cones_tools prefix="${prefix}cones_">
+        <xacro:cones_tools prefix="${prefix}cones">
         </xacro:cones_tools>
       </xacro:if>
       <!--RUPs use case:  TODO -->

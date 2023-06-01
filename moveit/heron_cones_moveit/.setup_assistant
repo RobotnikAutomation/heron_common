@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: heron_description
+    relative_path: robots/heron.urdf.xacro
+    xacro_args: use_case:=cones launch_arm:=true kinematics:=omni
+  SRDF:
+    relative_path: config/heron.srdf
+  CONFIG:
+    author_name: Raquel Julia
+    author_email: rjulia@robotnik.es
+    generated_timestamp: 1685611165
